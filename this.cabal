@@ -1,0 +1,41 @@
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.32.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: c3d6c94c03c9cffdd24ee026c4903546f46be810a7581a021ad8ac65ffda5494
+
+name:           it
+version:        0.1.0.0
+description:    Please see the README on GitHub at <https://github.com/JeffreyBenjaminBrown/it#readme>
+homepage:       https://github.com/JeffreyBenjaminBrown/it#readme
+bug-reports:    https://github.com/JeffreyBenjaminBrown/it/issues
+author:         Jeffrey Benjamin Brown
+maintainer:     jeffbrown.the@gmail.com
+copyright:      BSD
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+extra-source-files:
+    README.md
+    ChangeLog.md
+
+source-repository head
+  type: git
+  location: https://github.com/JeffreyBenjaminBrown/it
+
+library
+  exposed-modules:
+      Lib
+    , Tests
+  other-modules:
+      Paths_it
+  hs-source-dirs:
+      src
+  build-depends:
+      base
+    , containers
+    , HUnit
+    , lens
+  default-language: Haskell2010
