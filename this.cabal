@@ -6,7 +6,7 @@ cabal-version: 1.12
 --
 -- hash: c3d6c94c03c9cffdd24ee026c4903546f46be810a7581a021ad8ac65ffda5494
 
-name:           it
+name:           this
 version:        0.1.0.0
 description:    Please see the README on GitHub at <https://github.com/JeffreyBenjaminBrown/it#readme>
 homepage:       https://github.com/JeffreyBenjaminBrown/it#readme
@@ -15,11 +15,9 @@ author:         Jeffrey Benjamin Brown
 maintainer:     jeffbrown.the@gmail.com
 copyright:      BSD
 license:        BSD3
-license-file:   LICENSE
 build-type:     Simple
 extra-source-files:
     README.md
-    ChangeLog.md
 
 source-repository head
   type: git

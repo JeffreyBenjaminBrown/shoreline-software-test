@@ -13,7 +13,7 @@ tests = runTestTT $ TestList
   [ test_lengthOfShortestChain
   , test_extendChain
   , test_graphFromEdges
-  , test_undirectedGraphFromEdges
+  , test_symmetricGraphFromEdges
   ]
 
 -- | The data contains two connected components: one contains
@@ -32,6 +32,7 @@ testGraph = graphFromEdges
 -- | The interesting cases seemed to be:
 -- nodes that do not exist,
 -- nodes that are not connected,
+-- the chain from something to itself,
 -- nodes that are connected with a length-1 path, and
 -- nodes that are connected by a long path and a shorter alternative.
 -- I also test the first case in the definition, where start=end.
@@ -41,6 +42,8 @@ test_lengthOfShortestChain = TestCase $ do
     lengthOfShortestChain (9999,7777) testGraph
   assertBool "20 to 101: not connected" $ isLeft $
     lengthOfShortestChain (20,101) testGraph
+  assertBool "0 to 0: connected by 0 hops" $
+    lengthOfShortestChain (0,0) testGraph == Right 0
   assertBool "0 to 10: connected by 1 hop" $
     lengthOfShortestChain (0,10) testGraph == Right 1
   assertBool "0 to 40: connected by 3 hops (0-10-30-40)" $
@@ -70,17 +73,17 @@ test_graphFromEdges = TestCase $ do
   assertBool "2 nodes, 1 edge" $
     graphFromEdges [(1,2)] ==
     Graph { _gNodes = S.fromList [1,2]
-          , _gEdges = M.fromList
+          , _gOutEdges = M.fromList
             [ (1, S.singleton 2) ] }
   assertBool "an outward V shape" $
     graphFromEdges [(1,2), (1,3)] ==
     Graph { _gNodes = S.fromList [1,2,3]
-          , _gEdges = M.fromList
+          , _gOutEdges = M.fromList
             [ (1, S.fromList [2,3]) ] }
   assertBool "an inward V shape" $
     graphFromEdges [(2,1), (3,1)] ==
     Graph { _gNodes = S.fromList [1,2,3]
-          , _gEdges = M.fromList
+          , _gOutEdges = M.fromList
             [ (2, S.fromList [1])
             , (3, S.fromList [1]) ] }
 
@@ -88,11 +91,11 @@ test_graphFromEdges = TestCase $ do
 -- This function is almost too simple to test --
 -- if it reverses one edge, it reverses them all,
 -- hence a single test case seems sufficient.
-test_undirectedGraphFromEdges :: Test
-test_undirectedGraphFromEdges = TestCase $ do
+test_symmetricGraphFromEdges :: Test
+test_symmetricGraphFromEdges = TestCase $ do
   assertBool "2 nodes, 1 edge" $
-    undirectedGraphFromEdges [(1,2)] ==
+    symmetricGraphFromEdges [(1,2)] ==
     Graph { _gNodes = S.fromList [1,2]
-          , _gEdges = M.fromList
+          , _gOutEdges = M.fromList
             [ (1, S.singleton 2)
             , (2, S.singleton 1) ] }
